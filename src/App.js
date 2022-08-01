@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "./contexts/AuthContext";
 import { useLogin } from "./hooks/useLogin";
-import { useLogout } from "./hooks/useLogout";
+import ProfileCard from "./ProfileCard";
 
 const App = () => {
-  const { login, isPending } = useLogin();
-  const { logout } = useLogout();
+  const { login } = useLogin();
+  const { user, authIsReady } = useContext(AuthContext);
+  console.log(user);
 
-  return (
+  return authIsReady ? (
     <div className="App">
-      <button className="btn" onClick={login}>
-        {isPending ? "Loading..." : "Login With Github"}
-      </button>
-      <button className="btn" onClick={logout}>
-        Log Out
-      </button>
+      {user ? (
+        <ProfileCard user={user} />
+      ) : (
+        <button className="btn login-btn" onClick={login}>
+          Login With GitHub
+        </button>
+      )}
     </div>
+  ) : (
+    <h1>Making your auth ready, please wait for a moment</h1>
   );
 };
 
