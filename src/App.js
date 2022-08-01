@@ -13,9 +13,14 @@ const App = () => {
       {user ? (
         <ProfileCard user={user} />
       ) : (
-        <button className="btn login-btn" onClick={login}>
-          Login With GitHub
-        </button>
+        <>
+          <button className="btn login-btn" onClick={login}>
+            Login With GitHub
+          </button>
+          <button className="btn login-btn" onClick={() => login("Google")}>
+            Login With Google
+          </button>
+        </>
       )}
     </div>
   ) : (
